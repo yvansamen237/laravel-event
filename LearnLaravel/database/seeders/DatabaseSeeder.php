@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Post;
+
+use App\Models\Ingredient;
+use App\Models\Recipe;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,8 +17,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Post::factory(10)->create();
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->has(
+            Recipe::factory(3)->hasAttached(
+                Ingredient::factory(5),
+                [
+                    'amount' => 10,
+                    'unit' => 'cl'
+                ]
+            )
+        )->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
