@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\RecipeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +14,11 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', [Controller::class, 'index'])->name('welcome');
+Route::resource('recipes', RecipeController::class);
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+require __DIR__ . '/auth.php';
